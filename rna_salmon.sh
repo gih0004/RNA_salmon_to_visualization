@@ -34,3 +34,14 @@ do
     salmon quant -i {index_name}.index -l A -1 ${base}.filtered_1.fq -2 ${base}.filtered_2.fq --gcBias -o ./salmon/${base}
     
 done
+
+## This code of block is to take the quantification file from the file subdiriectories and put it in the main salmon directory to make it easier for download 
+# Loop through each subdirectory
+for subdir in */; do
+    subdir=${subdir%/}  # Remove trailing slash
+    # Check if quant.sf file exists in the subdirectory
+    if [ -f "$subdir/quant.sf" ]; then
+        # Copy quant.sf to the main directory with the desired name
+        cp "$subdir/quant.sf" "${subdir}_quant.sf"
+    fi
+done
